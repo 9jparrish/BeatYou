@@ -7,17 +7,20 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 
-public class BeatYou {
+public class BeatYou implements ActionListener{
 	private JFrame frame;
 	private JPanel view;
 	private JLabel nameOne;
 	private JLabel nameTwo;
-	private JLabel nameOneScoreboard;
-	private JLabel nameTwoScoreboard;
+	private JLabel nameOneScoreboardlabel;
+	private JLabel nameTwoScoreboardlabel;
+	private Scoreboard Scoreboard = new Scoreboard();
 	private GridBagConstraints gbc;
 	private JButton addNameOne;
 	private JButton addNameTwo;
@@ -68,19 +71,22 @@ public class BeatYou {
 		
 		GridBagConstraints gbc1 = new GridBagConstraints();
 		
-		nameOneScoreboard = new JLabel("0");
-		nameOneScoreboard.setFont(new Font("Times New Roman", Font.PLAIN, 46));
+		nameOneScoreboardlabel = new JLabel("0");
+		nameOneScoreboardlabel.setFont(new Font("Times New Roman", Font.PLAIN, 46));
+		nameOneScoreboardlabel.setText(Scoreboard.getJakeScore());
+		
 		gbc1.gridx = 0;
 		gbc1.gridy = 0;
 		gbc1.insets = new Insets(0, 0, 0, 150);
-		view1.add(nameOneScoreboard, gbc1);
+		view1.add(nameOneScoreboardlabel, gbc1);
 		
-		nameTwoScoreboard = new JLabel("0");
-		nameTwoScoreboard.setFont(new Font("Times New Roman", Font.PLAIN, 46));
+		nameTwoScoreboardlabel = new JLabel("0");
+		nameTwoScoreboardlabel.setFont(new Font("Times New Roman", Font.PLAIN, 46));
+		nameTwoScoreboardlabel.setText(Scoreboard.getJPScore());
 		gbc1.gridx = 1;
 		gbc1.gridy = 0;
 		gbc1.insets = new Insets(0, 150, 0, 0);
-		view1.add(nameTwoScoreboard, gbc1);
+		view1.add(nameTwoScoreboardlabel, gbc1);
 		
 		
 		JPanel view2 = new JPanel();
@@ -91,6 +97,8 @@ public class BeatYou {
 		GridBagConstraints gbc2 = new GridBagConstraints();
 		
 		addNameOne = new JButton("Add to Jake");
+		addNameOne.addActionListener(this);
+		addNameOne.setActionCommand("JakeButton");
 		gbc2.gridx = 0;
 		gbc2.gridy= 0;
 		gbc2.insets = new Insets(0, 0, 0, 50);
@@ -99,6 +107,8 @@ public class BeatYou {
 		
 		
 		addNameTwo = new JButton("Add to JP");
+		addNameTwo.addActionListener(this);
+		addNameTwo.setActionCommand("JPButton");
 		gbc2.gridx = 1;
 		gbc2.gridy= 0;
 		gbc2.insets = new Insets(0, 50, 0, 0);
@@ -117,6 +127,19 @@ public class BeatYou {
 	
 	public static void main(String [] args) {
 		new BeatYou();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String a = e.getActionCommand();
+		if(a == "JakeButton") {
+			Scoreboard.addtoJake();
+		}
+		if(a == "JPButton") {
+			Scoreboard.addtoJP();
+		}
+		gui();
+		
 	}
 	
 	
