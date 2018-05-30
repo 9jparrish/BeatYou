@@ -22,6 +22,8 @@ public class BeatYou {
 	private JButton addNameOne;
 	private JButton addNameTwo;
 	
+	//my changes
+	
 	public BeatYou() {
 		
 		gui();
